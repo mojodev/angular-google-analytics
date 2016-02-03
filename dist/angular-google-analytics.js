@@ -1061,8 +1061,13 @@
 
         // activates page tracking
         if (trackRoutes) {
-          $rootScope.$on(pageEvent, function () {
-            that._trackPage();
+          $rootScope.$on(pageEvent, function (event, next) {
+            if(next && next.name){
+              var rootState = next.name.split('.')[0];
+            }
+            if(rootState !== 'admin'){
+              that._trackPage();
+            }
           });
         }
 
